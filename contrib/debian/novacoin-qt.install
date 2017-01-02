@@ -1,0 +1,5 @@
+Eryllium-qt usr/bin
+share/pixmaps/Eryllium32.xpm usr/share/pixmaps
+share/pixmaps/Eryllium80.xpm usr/share/pixmaps
+debian/Eryllium-qt.desktop usr/share/applications
+debian/Eryllium-qt.protocol usr/share/kde4/services/

@@ -1,0 +1,11 @@
+[Protocol]
+exec=Eryllium-qt '%u'
+protocol=Eryllium
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false

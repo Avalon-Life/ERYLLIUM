@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Eryllium
+Comment=Eryllium P2P Cryptocurrency
+Comment[ru]=Eryllium, P2P криптовалюта
+Comment[fr]=Eryllium, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Eryllium, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/Eryllium-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/Eryllium80.xpm
+MimeType=x-scheme-handler/Eryllium;
+Categories=Office;

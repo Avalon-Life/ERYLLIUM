@@ -1,0 +1,2 @@
+debian/bin/Erylliumd usr/bin
+src/Erylliumd usr/lib/Eryllium

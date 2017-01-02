@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+
+DEB_INSTALL_EXAMPLES_Erylliumd += debian/examples/*
+DEB_INSTALL_MANPAGES_Erylliumd += debian/manpages/*
+
+%:
+	dh --with bash-completion $@
+
+override_dh_auto_build:
+	cd src; $(MAKE) -f makefile.unix Erylliumd USE_ASM=1 USE_LEVELDB=1
+	$(MAKE)
+
+override_dh_auto_clean:
+	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f Eryllium-qt; fi
+	cd src; $(MAKE) -f makefile.unix clean
+
+override_dh_auto_configure:
+	qmake Eryllium-qt.pro USE_ASM=1 USE_LEVELDB=1
+
+# Ensure wrapper is set executable
+binary-post-install/Erylliumd:
+	chmod +x $(cdbs_curdestdir)usr/bin/Erylliumd
+binary-post-install/Eryllium-qt:
+	chmod +x $(cdbs_curdestdir)usr/bin/Eryllium-qt
