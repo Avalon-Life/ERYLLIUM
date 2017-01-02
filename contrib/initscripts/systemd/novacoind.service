@@ -1,1 +1,11 @@
+[Unit]
+Description=Eryllium daemon serivce
+After=network.target
 
+[Service]
+Type=simple
+User=Eryllium
+ExecStart=/opt/Eryllium/Erylliumd
+
+[Install]
+WantedBy=multi-user.target
