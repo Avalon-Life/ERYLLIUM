@@ -1,1 +1,68 @@
+#!/bin/sh
 
+# PROVIDE: Eryllium
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# Eryllium_enable (bool): Set to NO by default. Set this variable to YES if you want to enable Eryllium service.
+# Eryllium_config (path): Set to /usr/local/etc/Eryllium.conf by default.
+# Eryllium_user:  The user account Eryllium daemon runs as. It uses 'root' user by default.
+# Eryllium_group: The group account Eryllium daemon runs as. It uses 'wheel' group by default.
+# Eryllium_datadir (str): Default to "/var/db/Eryllium". Base data directory.
+
+. /etc/rc.subr
+
+name=Eryllium
+rcvar=Eryllium_enable
+
+: ${Eryllium_enable:=NO}
+: ${Eryllium_config=/usr/local/etc/Eryllium.conf}
+: ${Eryllium_datadir=/var/db/Eryllium}
+: ${Eryllium_user="root"}
+: ${Eryllium_group="wheel"}
+
+required_files=${Eryllium_config}
+command=/usr/local/bin/Erylliumd
+Eryllium_chdir=${Eryllium_datadir}
+pidfile="${Eryllium_datadir}/Erylliumd.pid"
+stop_cmd=Eryllium_stop
+command_args="-conf=${Eryllium_config} -datadir=${Eryllium_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+Eryllium_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${Eryllium_datadir}
+	[ $? -eq 0 ] && chown -R ${Eryllium_user}:${Eryllium_group} ${Eryllium_datadir}
+}
+
+Eryllium_prestart()
+{
+	if [ ! -d "${Eryllium_datadir}/." ]; then
+		Eryllium_create_datadir || return 1
+	fi
+}
+
+Eryllium_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+Eryllium_stop()
+{
+    Eryllium_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${Eryllium_config} -datadir=${Eryllium_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"
