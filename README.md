@@ -28,11 +28,11 @@ development team members simply pulls it.</p>
 
 <p>If it is a <em>more complicated or potentially controversial</em> change, then the patch
 submitter will be asked to start a discussion (if they haven't already) on the
-<a href="https://groups.google.com/forum/#!forum/Eryllium-dev">mailing list</a>.</p>
+<a href="https://eryllium.net">mailing list</a>.</p>
 
 <p>The patch will be accepted if there is broad consensus that it is a good thing.
 Developers should expect to rework and resubmit patches if the code doesn't
-match the project's coding conventions (see <a href="/Eryllium-project/Eryllium/blob/master-0.10/doc/coding.md">doc/coding.md</a>) or are
+match the project's coding conventions (see <a href="/Eryllium/project/blob/master/doc/coding.txt">doc/coding.md</a>) or are
 controversial.</p>
 
 <p>The <code>master-0.10</code> branch is regularly built and tested, but is not guaranteed to be
